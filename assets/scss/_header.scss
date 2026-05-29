@@ -90,8 +90,6 @@
   }
 }
 
-// Mobile : masquer la nav
-@media (max-width: 720px) {
-  .nav { display: none; }
-  .site-header { justify-content: space-between; }
-}
+// Mobile : la nav est masquée et le burger affiché à ≤860px
+// (voir _components.scss). `justify-content: space-between` est déjà la valeur
+// par défaut de `.site-header`, donc aucune règle ≤720px n'est nécessaire ici.

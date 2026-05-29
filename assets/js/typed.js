@@ -24,6 +24,17 @@ window.__TYPED_PHRASES = {
     || window.__TYPED_PHRASES.en;
 
   let pi = 0, ci = 0, deleting = false;
+  let timer = 0;
+  let offscreen = false, pageHidden = document.hidden;
+
+  // Inutile de taper si l'effet n'est pas visible (onglet masqué ou hero
+  // hors écran) : aucune mutation visible, donc aucun repaint gaspillé.
+  const paused = () => offscreen || pageHidden;
+
+  // Planifie le prochain caractère, sauf en pause.
+  function next(delay) {
+    timer = paused() ? 0 : setTimeout(step, delay);
+  }
 
   function step() {
     const phrases = getPhrases();
@@ -32,17 +43,37 @@ window.__TYPED_PHRASES = {
     if (!deleting) {
       ci++;
       el.textContent = cur.slice(0, ci);
-      if (ci === cur.length) { deleting = true; setTimeout(step, 2400); return; }
+      if (ci === cur.length) { deleting = true; next(2400); return; }
     } else {
       ci--;
       el.textContent = cur.slice(0, ci);
       if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; }
     }
 
-    setTimeout(step, deleting ? 25 : 45 + Math.random() * 40);
+    next(deleting ? 25 : 45 + Math.random() * 40);
   }
 
-  setTimeout(step, 1200);
+  function sync() {
+    if (paused()) {
+      clearTimeout(timer); timer = 0;
+    } else if (!timer) {
+      timer = setTimeout(step, 0);
+    }
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    pageHidden = document.hidden;
+    sync();
+  });
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver((entries) => {
+      offscreen = !entries[0].isIntersecting;
+      sync();
+    }, { threshold: 0 }).observe(el);
+  }
+
+  timer = setTimeout(step, 1200);
 
   window.__resetTyped = () => {
     pi = 0; ci = 0; deleting = false;

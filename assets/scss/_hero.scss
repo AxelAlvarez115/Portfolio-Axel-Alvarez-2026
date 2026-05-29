@@ -4,6 +4,7 @@
 
 #hero {
   min-height: 100vh;
+  min-height: 100svh; // évite le saut de la barre d'outils mobile
   padding: 0;
   border-bottom: 1px solid var(--line);
   position: relative;
@@ -158,6 +159,15 @@
       0 0 8px var(--accent),
       1px 0 0 var(--accent),
       -1px 0 0 var(--accent);
+  }
+}
+
+// Évite que "axel_alvarez_" ne soit coupé entre ~380px et 480px : la base
+// épinglait 56px alors que la largeur dispo ne le permet pas.
+@media (max-width: 480px) {
+  .hero-name {
+    font-size: clamp(34px, 9.5vw, 50px);
+    white-space: nowrap;
   }
 }
 

@@ -479,7 +479,7 @@
       <div class="contact-actions">
         <a class="btn primary" href="/cdn-cgi/l/email-protection#6f070a0303002f0e170a030e03190e1d0a15410b0a19"><span><span class="__cf_email__" data-cfemail="d7bfb2bbbbb897b6afb2bbb6bba1b6a5b2adf9b3b2a1">[email&#160;protected]</span></span><span class="arrow">→</span></a>
         <a class="btn" id="bookCallBtn" href="#" data-p1="0699" data-p2="14" data-p3="2291"><span class="book-label" data-i18n="contact.book">book a call</span><span class="arrow">↗</span></a>
-        <a class="btn" href="assets/documents/CV – Axel Alvarez Dev.pdf" download="CV – Axel Alvarez Dev.pdf"><span data-i18n="contact.cv">download cv.pdf</span><span class="arrow">↓</span></a>
+        <button class="btn" id="cvModalOpen"><span data-i18n="contact.cv">download cv.pdf</span><span class="arrow">↓</span></button>
       </div>
 
       <div class="contact-meta">
@@ -527,6 +527,24 @@
     </div>
   </div>
 </footer>
+
+<!-- CV preview modal -->
+<div class="cv-modal" id="cvModal" role="dialog" aria-modal="true" aria-labelledby="cvModalTitle" aria-hidden="true">
+  <div class="cv-modal-backdrop" id="cvModalBackdrop"></div>
+  <div class="cv-modal-panel" role="document">
+    <button type="button" class="cv-modal-close" id="cvModalClose" aria-label="Fermer">×</button>
+    <div class="cv-modal-eyebrow">// curriculum_vitae</div>
+    <h3 class="cv-modal-title" id="cvModalTitle">Axel<span class="accent">_</span>Alvarez<span class="accent">_</span>Dev</h3>
+    <div class="cv-modal-preview">
+      <iframe id="cvFrame" src="" title="Aperçu CV" allowfullscreen></iframe>
+      <p class="cv-modal-fallback">Votre navigateur ne peut pas afficher le PDF. <a href="assets/documents/CV – Axel Alvarez Dev.pdf" target="_blank">Ouvrir dans un nouvel onglet</a>.</p>
+    </div>
+    <div class="cv-modal-actions">
+      <a class="btn primary" href="assets/documents/CV – Axel Alvarez Dev.pdf" download="CV – Axel Alvarez Dev.pdf"><span data-i18n="contact.cv">download cv.pdf</span><span class="arrow">↓</span></a>
+      <button type="button" class="btn" id="cvModalCloseBtn"><span>fermer</span><span class="arrow">×</span></button>
+    </div>
+  </div>
+</div>
 
 <!-- Email contact modal -->
 <div class="email-modal" id="emailModal" role="dialog" aria-modal="true" aria-labelledby="emailModalTitle" aria-hidden="true">
@@ -586,6 +604,7 @@
 <script src="assets/js/email-modal.js"></script>
 <script src="assets/js/projects-carousel.js"></script>
 <script src="assets/js/glitch-auto.js"></script>
+<script src="assets/js/cv-modal.js"></script>
 <script src="assets/js/book-call.js"></script>
 <script src="assets/js/heli-toggle.js"></script>
 <!-- Tweaks panel -->

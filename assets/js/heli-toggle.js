@@ -11,7 +11,7 @@
     localStorage.setItem(STORAGE_KEY, on ? '1' : '0');
   }
 
-  // Restore last state
+  // Démarre désactivé si aucune préférence sauvegardée
   setHeli(localStorage.getItem(STORAGE_KEY) === '1');
 
   btn.addEventListener('click', () => {
